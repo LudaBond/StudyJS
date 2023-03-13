@@ -92,4 +92,3 @@
 // let initials;
 // initials = userNames.sort().map((user) => user.split(' ').map(user => user[0]).join('.'));
 // console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
-
