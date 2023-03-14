@@ -75,7 +75,7 @@ productOfArray = (resultsArray.flat(10))
 productOfArray = productOfArray.reduce((a, b) => { return a * b; });
 console.log(productOfArray);
 
-// Задача на повернення ініціалів для кожного імені з масиву, посортованих в алфавітному порядку:
+// Задача на повернення ініціалів для кожного імені з масиву, посортованих в алфавітному  порядку:
 
 const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
 let initials;
