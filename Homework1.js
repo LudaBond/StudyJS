@@ -73,11 +73,11 @@ const resultsArray = [1, 2, [3, [4]]];
 let productOfArray;
 productOfArray = (resultsArray.flat(10))
 productOfArray = productOfArray.reduce((a, b) => { return a * b; });
-console.log(productOfArray); // 24
+console.log(productOfArray);
 
 // Задача на повернення ініціалів для кожного імені з масиву, посортованих в алфавітному порядку:
 
 const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
 let initials;
 initials = userNames.sort().map((user) => user.split(' ').map(user => user[0]).join('.'));
-console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
+console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."];
