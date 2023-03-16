@@ -57,27 +57,21 @@ console.log(reverseString("hello"));
 
 // Задача на розворот числа:
 const currentMaxValue = 4589;
-let reverseMaxValue;
-let array = Array.from(currentMaxValue.toString());
-reverseMaxValue = array.reverse().join("");
-reverseMaxValue = Number(reverseMaxValue);
+const array = Array.from(currentMaxValue.toString());
+const reverseMaxValue = Number(array.reverse().join(""));
 console.log(reverseMaxValue);
 console.log(typeof reverseMaxValue);
 
 // Задача на знаходження добутку масиву чисел з невідомою глибиною вкладеності:
 
 const resultsArray = [1, 2, [3, [4]]];
-let productOfArray;
-productOfArray = (resultsArray.flat(7))
-productOfArray = productOfArray.reduce((a, b) => {
+const productOfArray = (resultsArray.flat(Infinity)).reduce((a, b) => {
     return a * b;
 });
 console.log(productOfArray);
 
 // Задача на повернення  ініціалів для кожного   імені з масиву, посортованих в алфавітному порядку:
 
-const userNames = ["Петрик Ольга Іванівна", "Гнатюк Петро Антонович", "Рудко Андрій Опанасович"];
-let initials;
-initials = userNames.sort().map((user) => user.split(' ').map(user => user[0]).join('.'));
+const userNames = ["Петрик Ольга Іванівна ", "Гнатюк Петро Антонович ", "Рудко Андрій Опанасович "];
+const initials = userNames.sort().map((user) => user.split(' ').map(user => user[0]).join('.'));
 console.log(initials);
-
