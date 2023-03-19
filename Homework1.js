@@ -1,56 +1,39 @@
 "use strict";
 // 1. Повернути негативний:
-function makeNegative(num) {
-    if (num > 0) {
-        return num * (-1);
-    }
-    return num;
-}
+const makeNegative = (num) => num == 0 ? 0 : Math.abs(num) * (-1);
 console.log(makeNegative(1));
 console.log(makeNegative(-5));
 console.log(makeNegative(0));
 console.log(makeNegative(0.12));
 
 // 2. Протилежне число:
-function opposite(number) {
-    return number * (-1);
-}
+const opposite = (number) => number * (-1);
 console.log(opposite(3));
 console.log(opposite(2.25));
 console.log(opposite(-6));
 
 
 // 3. Парні чи непарні:
-function evenOrOdd(number) {
-    return number % 2 === 0 ? "Even" : "Odd"
-}
+const evenOrOdd = (number) => number % 2 === 0 ? "Even" : "Odd";
 console.log(evenOrOdd(3));
 console.log(evenOrOdd(2));
 console.log(evenOrOdd(-6));
 console.log(evenOrOdd(0));
 
 // 4. Перетворіть число на рядок
-function numberToString(num) {
-    return num.toString();
-}
+const numberToString = (num) => num.toString();
 console.log(numberToString(123));
 
 
 // 5. Перетворення логічних значень на рядки «Так» або «Ні»:
-function boolToWord(bool) {
-    if (bool === true) {
-        return "Yes";
-    }
-    return "No";
-}
+
+const boolToWord = (bool) => bool === true ? "Yes" : "No";
 console.log(boolToWord(false));
 console.log(boolToWord(true));
 
 
 // 6 *.Перевернуті рядки:
-function reverseString(str) {
-    return str.split("").reverse().join("");
-}
+const reverseString = (str) => str.split("").reverse().join("");
 console.log(reverseString("hello"));
 
 
@@ -65,13 +48,12 @@ console.log(typeof reverseMaxValue);
 // Задача на знаходження добутку масиву чисел з невідомою глибиною вкладеності:
 
 const resultsArray = [1, 2, [3, [4]]];
-const productOfArray = (resultsArray.flat(Infinity)).reduce((a, b) => {
-    return a * b;
-});
+const productOfArray = (resultsArray.flat(Infinity)).reduce((a, b) => a * b);
 console.log(productOfArray);
 
 // Задача на повернення  ініціалів для кожного   імені з масиву, посортованих в алфавітному порядку:
 
-const userNames = ["Петрик Ольга Іванівна ", "Гнатюк Петро Антонович ", "Рудко Андрій Опанасович "];
-const initials = userNames.sort().map((user) => user.split(' ').map(user => user[0]).join('.'));
+const userNames = ["Aa A A", "Az A A", "Aa B B"];
+const initials = userNames.map((user) => user.split(' ').map(user => user[0]).join('.'));
+initials.sort();
 console.log(initials);
