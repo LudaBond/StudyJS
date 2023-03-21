@@ -1,20 +1,20 @@
 "use strict";
 
 // Задача про обчислення різниці часу
-function durationBetweenDates(startDate = '2022-01-01', endDate = '2022-01-02', dimension = 'days') {
+
+function durationBetweenDates(startDate = '2022-01-01', endDate = '2022-01-02', dimensions = ['days']) {
     const timeDiff = Math.abs((new Date(endDate)).getTime() - (new Date(startDate)).getTime());
-    switch (dimension) {
-        case 'days':
-            return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-        case 'hours':
-            return Math.ceil(timeDiff / (1000 * 60 * 60));
-        case 'minutes':
-            return Math.ceil(timeDiff / (1000 * 60));
-        case 'seconds':
-            return Math.ceil(timeDiff / 1000);
-            break;
-    }
+
+    const configObj = {
+        days: 1000 * 60 * 60 * 24,
+        hours: 1000 * 60 * 60,
+        minutes: 1000 * 60,
+        seconds: 1000,
+    };
+
+    return Math.ceil(timeDiff / configObj[dimensions]);
 }
+
 console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds'));
 console.log(durationBetweenDates('31 Jan 2022', '03 Feb 2021', 'days'));
 
@@ -28,29 +28,26 @@ const priceData = {
     BANANAS: '48',
     oRAngGEs: '48.7584',
 };
-
 function optimizer(data) {
-    const updatedPriceData = {};
-    for (const key in priceData) {
-        const lowerCaseKey = key.toLowerCase();
-        const roundedPrice = parseFloat(priceData[key]).toFixed(2);
-        updatedPriceData[lowerCaseKey] = roundedPrice;
-    }
-    return updatedPriceData;
+    return Object.entries(data)
+        .map(([key, value]) => [key.toLowerCase(), parseFloat(value).toFixed(2)])
+        .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
 }
-const updatedPriceData = optimizer(priceData);
-console.log(updatedPriceData);
+
+console.log(optimizer(priceData));
+
 
 
 // Задача про рекурсію та ітерацію
 function recursiveOddSumTo(number) {
+    let newNumber = number;
     if (number <= 0) {
         return 0;
     }
     if (number % 2 === 0) {
-        number--;
+        newNumber--;
     }
-    return number + recursiveOddSumTo(number - 2);
+    return newNumber + recursiveOddSumTo(newNumber - 2);
 }
 console.log(recursiveOddSumTo(1)) // 1
 console.log(recursiveOddSumTo(10)) // 25
