@@ -12,7 +12,7 @@ function durationBetweenDates(startDate = '2022-01-01', endDate = '2022-01-02', 
         seconds: 1000,
     };
 
-    return Math.ceil(timeDiff / configObj[dimensions]);
+    return Math.ceil(timeDiff / configObj[dimensions]) + " " + [dimensions];
 }
 
 console.log(durationBetweenDates('02 Aug 1985', '03 Aug 1985', 'seconds'));
@@ -39,16 +39,17 @@ console.log(optimizer(priceData));
 
 
 // Задача про рекурсію та ітерацію
-function recursiveOddSumTo(number) {
-    let newNumber = number;
-    if (number <= 0) {
+
+function recursiveOddSumTo(n) {
+    if (n <= 0) {
         return 0;
+    } else if (n % 2 === 0) {
+        return recursiveOddSumTo(n - 1);
+    } else {
+        return n + recursiveOddSumTo(n - 2);
     }
-    if (number % 2 === 0) {
-        newNumber--;
-    }
-    return newNumber + recursiveOddSumTo(newNumber - 2);
 }
+
 console.log(recursiveOddSumTo(1)) // 1
 console.log(recursiveOddSumTo(10)) // 25
 
