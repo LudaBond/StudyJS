@@ -1,5 +1,5 @@
 "use strict";
-// // 1. Напишіть функцію addThemAll яка буде знаходити сумму усіх своїх аргументів незалежно від їх кількості
+// // // 1. Напишіть функцію addThemAll яка буде знаходити сумму усіх своїх аргументів незалежно від їх кількості
 function addThemAll(...numbers) {
     let sum = 0;
     for (const number of numbers) {
@@ -11,7 +11,7 @@ console.log(addThemAll(2, 4));// 6
 console.log(addThemAll(1, 2, 3, 4));// 10
 console.log(addThemAll(5, 5, 10));// 20
 
-// 2. Задача на використання замикання.
+// // 2. Задача на використання замикання.
 function multiply(a) {
     return function (b) {
         return a * b;
@@ -21,7 +21,7 @@ console.log(multiply(5)(5))
 console.log(multiply(2)(-2))
 console.log(multiply(4)(3))
 
-// 3. Напишіть функцію яка буде використовуватись для сортування масиву фільмів. 
+// // 3. Напишіть функцію яка буде використовуватись для сортування масиву фільмів. 
 const movies = [
     {
         movieName: 'The Thing',
@@ -61,8 +61,8 @@ console.log(movies.sort(byProperty('releaseYear', '>'))); // виведе мас
 console.log(movies.sort(byProperty('runningTimeInMinutes', '<'))); // виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого*
 console.log(movies.sort(byProperty('movieName', '>'))); // виведе масив фільмів посортованих по назві, в алфавітному порядку*
 
-// 4. Напишіть функцію detonatorTimer(delay), яка виводить в консоль число кожну секунду, починаючи 
-// з delay(ціле число) і в кінці замість 0 виведе 'BOOM!'.Напишіть її двома варіантами:
+// // 4. Напишіть функцію detonatorTimer(delay), яка виводить в консоль число кожну секунду, починаючи 
+// // з delay(ціле число) і в кінці замість 0 виведе 'BOOM!'.Напишіть її двома варіантами:
 
 // Використовуючи setIntervalВикористовуючи вкладений setTimeout
 function detonatorTimer(delay) {
@@ -93,8 +93,8 @@ function detonatorTimer(delay) {
 }
 detonatorTimer(3);
 
-// 5. Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи 
-//     (2 - 3 штуки) що ці властивості виводять.Наприклад:
+// // 5. Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи 
+// //     (2 - 3 штуки) що ці властивості виводять.Наприклад:
 let me = {
     name: 'Liudmyla',
     residency: 'Poznan',
@@ -118,8 +118,8 @@ me.introduce();
 me.prognose();
 me.describeMyMood();
 
-// 6. А тепер зробіть всі свої методи з задачі 5 прив'язаними до контексту свого об'єкту -
-//     аби вони були захищені від перезапису об'єкту і їх можна було викликати в таймері:
+// // 6. А тепер зробіть всі свої методи з задачі 5 прив'язаними до контексту свого об'єкту -
+// //     аби вони були захищені від перезапису об'єкту і їх можна було викликати в таймері:
 let securedSelfIntroduce = me.introduce.bind(me);
 let securedSelfPrognose = me.prognose.bind(me);
 let securedSelfDescribeMyMood = me.describeMyMood.bind(me);
@@ -127,5 +127,26 @@ let securedSelfDescribeMyMood = me.describeMyMood.bind(me);
 setTimeout(securedSelfIntroduce, 1000); // виведе коректний результат*
 setTimeout(securedSelfPrognose, 2000); // виведе коректний результат*
 setTimeout(securedSelfDescribeMyMood, 3000); // виведе коректний результат*
+
+// 7. Напишіть функцію - декоратор яка вопвільнює 
+// виконання довільної функції на вказану кількість секунд.
+
+function someFunction(arg1, arg2) {
+    const result = arg1 * arg2;
+    console.log(result);
+}
+
+function slower(func, seconds) {
+    return function (...args) {
+        console.log(`Chill out, you will get your result in ${seconds} seconds`);
+        setTimeout(() => {
+            func.apply(this, args);
+        }, seconds * 1000);
+    }
+}
+
+let slowedSomeFunction = slower(someFunction, 5);
+
+slowedSomeFunction(3, 4);
 
 
