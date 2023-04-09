@@ -1,9 +1,11 @@
 "use strict";
 // // // 1. Напишіть функцію addThemAll яка буде знаходити сумму усіх своїх аргументів незалежно від їх кількості
+
 function addThemAll(...numbers) {
+    const numbersArray = [...numbers];
     let sum = 0;
-    for (const number of numbers) {
-        sum += number;
+    for (let i = 0; i < numbersArray.length; i++) {
+        sum += numbersArray[i];
     }
     return sum;
 }
@@ -12,7 +14,7 @@ console.log(addThemAll(1, 2, 3, 4));// 10
 console.log(addThemAll(5, 5, 10));// 20
 
 // // 2. Задача на використання замикання.
-function multiply(a) {
+const multiply = (a) => {
     return function (b) {
         return a * b;
     }
@@ -48,18 +50,21 @@ const movies = [
         runningTimeInMinutes: 107,
     },
 ];
-function byProperty(property, direction) {
-    return function (a, b) {
+function byProperty(movies, property, direction) {
+    const compare = (a, b) => {
         if (direction === '>') {
-            return a[property] - b[property];
+            return a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
         } else {
-            return b[property] - a[property];
+            return a[property] > b[property] ? -1 : a[property] < b[property] ? 1 : 0;
         }
-    }
+    };
+
+    return movies.sort(compare);
 }
-console.log(movies.sort(byProperty('releaseYear', '>'))); // виведе масив фільмів посортованих по року випуску, від старішого до новішого*
-console.log(movies.sort(byProperty('runningTimeInMinutes', '<'))); // виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого*
-console.log(movies.sort(byProperty('movieName', '>'))); // виведе масив фільмів посортованих по назві, в алфавітному порядку*
+
+console.log(byProperty(movies, 'releaseYear', '>')); // виведе масив фільмів посортованих по року випуску, від старішого до новішого*
+console.log(byProperty(movies, 'runningTimeInMinutes', '<')); // виведе масив фільмів посортованих по їх тривалості, від найдовшого до найкоротшого*
+console.log(byProperty(movies, 'movieName', '>')); // виведе масив фільмів посортованих по назві, в алфавітному порядку*
 
 // // 4. Напишіть функцію detonatorTimer(delay), яка виводить в консоль число кожну секунду, починаючи 
 // // з delay(ціле число) і в кінці замість 0 виведе 'BOOM!'.Напишіть її двома варіантами:
@@ -79,19 +84,16 @@ function detonatorTimer(delay) {
 detonatorTimer(3);
 
 function detonatorTimer(delay) {
-    let counter = delay;
-    const countdown = () => {
+    const countdown = (counter) => {
         console.log(counter);
-        counter--;
         if (counter <= 0) {
             console.log('BOOM!');
         } else {
-            setTimeout(countdown, 1000);
+            setTimeout(countdown.bind(null, counter - 1), 1000);
         }
     };
-    setTimeout(countdown, 1000);
+    countdown(delay);
 }
-detonatorTimer(3);
 
 // // 5. Напишіть об'єкт в якому опишіть свої довільні властивості та довільні методи 
 // //     (2 - 3 штуки) що ці властивості виводять.Наприклад:
@@ -139,11 +141,10 @@ function someFunction(arg1, arg2) {
 function slower(func, seconds) {
     return function (...args) {
         console.log(`Chill out, you will get your result in ${seconds} seconds`);
-        setTimeout(() => {
-            func.apply(this, args);
-        }, seconds * 1000);
-    }
+        setTimeout(func.bind(this, ...args), seconds * 1000);
+    };
 }
+
 
 let slowedSomeFunction = slower(someFunction, 5);
 
