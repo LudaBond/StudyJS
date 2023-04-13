@@ -149,5 +149,6 @@ function slower(func, seconds) {
 let slowedSomeFunction = slower(someFunction, 5);
 
 slowedSomeFunction(3, 4);
+slowedSomeFunction(5, 4);
 
 
