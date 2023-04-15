@@ -4,8 +4,6 @@ const endDateInput = document.getElementById("end-date");
 const measureSelect = document.getElementById("measure");
 const resultDiv = document.getElementById("result");
 const calculateBtn = document.getElementById("calculate-btn");
-// const weekdaysElement = document.getElementById("weekdays");
-// const weekendsElement = document.getElementById("weekends");
 const daysOptionSelect = document.getElementById("daysOption");
 
 calculateBtn.addEventListener("click", () => {
@@ -15,78 +13,117 @@ calculateBtn.addEventListener("click", () => {
     const daysOption = daysOptionSelect.value;
 
     const diff = calculateDateDifference(startDate, endDate, measure);
-    const weekdays = calculateWeekdays(startDate, endDate, daysOption)
-    const weekends = calculateWeekends(startDate, endDate, daysOption)
+    // const option = countDays(startDate, endDate, daysOption);
 
-    // resultDiv.innerText = `Період ${diff} ${measure}.  Робочих днів ${weekdays} . Вихідних ${weekends}`;
+    resultDiv.innerText = `Період ${diff} ${measure}. `;
+    // resultDiv.innerText = ` ${option}. `;
+
+
+    function calculateDateDifference(startDate, endDate, measure) {
+        const diffInMs = endDate - startDate + 24 * 60 * 60 * 1000;
+
+        switch (measure) {
+            case "days":
+                return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+            case "hours":
+                return Math.floor(diffInMs / (1000 * 60 * 60));
+            case "minutes":
+                return Math.floor(diffInMs / (1000 * 60));
+            case "seconds":
+                return Math.floor(diffInMs / 1000);
+            default:
+                throw new Error("Invalid measure value");
+        };
+        return days;
+    };
+    function countDays(startDate, endDate, daysOption) {
+        const oneDay = 24 * 60 * 60 * 1000; // Кількість мілісекунд у одному дні
+        const daysBetween = Math.round(Math.abs((startDate.getTime() - endDate.getTime()) / oneDay)) + 1;
+        const weekends = [0, 6]; // Номери днів, які вважаються вихідними (неділя та субота)
+
+        let countWeekdays = 0;
+        let countWeekends = 0;
+
+        // Проходимо по кожному дню між датами
+        for (let i = 0; i < daysBetween; i++) {
+            const date = new Date(startDate.getTime() + (i * oneDay));
+            const dayOfWeek = date.getDay();
+
+            // Якщо день належить до вихідних
+            if (weekends.includes(dayOfWeek)) {
+                countWeekends++;
+            } else {
+                countWeekdays++;
+            }
+        }
+        if (daysOption === 'all') {
+            console.log(`Загальна кількість днів між ${startDate.toDateString()} та ${endDate.toDateString()}: ${daysBetween}`);
+        } else if (daysOption === 'weekends') {
+            console.log(`Кількість вихідних днів між ${startDate.toDateString()} та ${endDate.toDateString()}: ${countWeekends}`);
+        } else if (daysOption === 'weekdays') {
+            console.log(`Кількість будніх днів між ${startDate.toDateString()} та ${endDate.toDateString()}: ${countWeekdays}`);
+        }
+    }
+    countDays(startDate, endDate, 'all');
+    countDays(startDate, endDate, 'weekends');
+    countDays(startDate, endDate, 'weekdays');
+
 });
 
-function calculateDateDifference(startDate, endDate, measure) {
-    const diffInMs = endDate - startDate;
 
-    switch (measure) {
-        case "days":
-            return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-        case "hours":
-            return Math.floor(diffInMs / (1000 * 60 * 60));
-        case "minutes":
-            return Math.floor(diffInMs / (1000 * 60));
-        case "seconds":
-            return Math.floor(diffInMs / 1000);
-        default:
-            throw new Error("Invalid measure value");
-    }
-    return days;
+// function addToHistory(startDate, endDate, measure, diff) {
+//     // Отримуємо історію результатів з локального сховища
+//     let history = JSON.parse(localStorage.getItem("history")) || [];
 
+//     // Додаємо новий результат до історії
+//     history.push({
+//         start: startDate,
+//         end: endDate,
+//         measure: measure,
+//         diff: diff
+//     });
 
+//     // Якщо історія містить більше 10 результатів, видаляємо найстаріший
+//     if (history.length > 10) {
+//         history.shift();
+//     }
 
-};
-function calculateWeekends(startDate, endDate, daysOption) {
-    let weekends = 0;
-    for (let i = startDate; i <= endDate; i += 24 * 60 * 60 * 1000) {
-        const date = new Date(i);
-        if (date.getDay() == 0 && date.getDay() == 6) {
-            weekends++;
-        }
-    }
+//     // Зберігаємо оновлену історію в локальному сховищі
+//     localStorage.setItem("history", JSON.stringify(history));
 
-    return weekends;
-};
-
-function calculateWeekdays(startDate, endDate, daysOption) {
-    let weekdays = 0;
+// }
+// addToHistory();
 
 
-    for (let i = startDate; i <= endDate; i += 24 * 60 * 60 * 1000) {
-        const date = new Date(i);
-        if (date.getDay() !== 0 && date.getDay() !== 6) {
-            weekdays++;
-        }
-    }
+    // function addResultToTable() {
+    //     // Отримуємо значення з полів введення
+    //     let input1 = parseFloat(document.getElementById("input1").value);
+    //     let input2 = parseFloat(document.getElementById("input2").value);
 
-    return weekdays;
+    //     // Рахуємо результат
+    //     let result = input1 + input2;
 
-    function addToHistory(startDate, endDate, duration, unit) {
-        // Отримуємо історію результатів з локального сховища
-        let history = JSON.parse(localStorage.getItem("history")) || [];
+    //     // Отримуємо таблицю за її id
+    //     let table = document.getElementById("results-table");
 
-        // Додаємо новий результат до історії
-        history.push({
-            start: startDate,
-            end: endDate,
-            duration: duration,
-            unit: unit
-        });
+    //     // Створюємо новий рядок
+    //     let newRow = table.insertRow();
 
-        // Якщо історія містить більше 10 результатів, видаляємо найстаріший
-        if (history.length > 10) {
-            history.shift();
-        }
+    //     // Створюємо три нові комірки для нашого нового рядка
+    //     let cell1 = newRow.insertCell();
+    //     let cell2 = newRow.insertCell();
+    //     let cell3 = newRow.insertCell();
 
-        // Зберігаємо оновлену історію в локальному сховищі
-        localStorage.setItem("history", JSON.stringify(history));
+    //     // Заповнюємо комірки значеннями
+    //     cell1.innerHTML = input1;
+    //     cell2.innerHTML = input2;
+    //     cell3.innerHTML = result;
+    // };
 
-    }
-    addToHistory();
-};
+
+
+
+
+
+
 
