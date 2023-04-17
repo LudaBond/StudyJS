@@ -2,7 +2,7 @@
 const startDateInput = document.getElementById("start-date");
 const endDateInput = document.getElementById("end-date");
 const measureSelect = document.getElementById("measure");
-const resultDiv = document.getElementById("result");
+const resultDiv = document.getElementById("results");
 const calculateBtn = document.getElementById("calculate-btn");
 const daysOptionSelect = document.getElementById("daysOption");
 
@@ -15,7 +15,26 @@ calculateBtn.addEventListener("click", () => {
     const diff = calculateDateDifference(startDate, endDate, measure);
     // const option = countDays(startDate, endDate, daysOption);
 
-    resultDiv.innerText = `Період ${diff} ${measure}. `;
+    const row = document.createElement("tr");
+
+    const td1 = document.createElement("td");
+    const td2 = document.createElement("td");
+    const td3 = document.createElement("td");
+    const td4 = document.createElement("td");
+
+    td1.innerText = `${startDate}`
+    td2.innerText = `${endDate}`
+    td3.innerText = `${measure}`
+    td4.innerText = `${diff}`
+
+    row.appendChild(td1);
+    row.appendChild(td2)
+    row.appendChild(td3)
+    row.appendChild(td4)
+
+    resultDiv.appendChild(row);
+
+    addToHistory(startDate, endDate, measure, diff);
     // resultDiv.innerText = ` ${option}. `;
 
 
@@ -69,6 +88,58 @@ calculateBtn.addEventListener("click", () => {
     countDays(startDate, endDate, 'weekdays');
 
 });
+
+
+function addToHistory(startDate, endDate, measure, diff) {
+    // Отримуємо історію результатів з локального сховища
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+
+    // Додаємо новий результат до історії
+    history.push({
+        startDate: startDate,
+        endDate: endDate,
+        measure: measure,
+        diff: diff
+    });
+
+    // Якщо історія містить більше 10 результатів, видаляємо найстаріший
+    if (history.length > 10) {
+        history.shift();
+        // resultDiv як видалити останню дитину в дом елемененту
+    }
+
+    // Зберігаємо оновлену історію в локальному сховищі
+    localStorage.setItem("history", JSON.stringify(history));
+}
+// addToHistory();
+
+
+let stringifiedHistory = JSON.parse(localStorage.getItem("history")) || [];
+
+if (history.length) {
+
+    stringifiedHistory.forEach(({ startDate, endDate, measure, diff }) => {
+        console.log
+
+        const row = document.createElement("tr");
+        const td1 = document.createElement("td");
+        const td2 = document.createElement("td");
+        const td3 = document.createElement("td");
+        const td4 = document.createElement("td");
+
+        td1.innerText = `${startDate}`
+        td2.innerText = `${endDate}`
+        td3.innerText = `${measure}`
+        td4.innerText = `${diff}`
+
+        row.appendChild(td1);
+        row.appendChild(td2)
+        row.appendChild(td3)
+        row.appendChild(td4)
+
+        resultDiv.appendChild(row);
+    });
+}
 
 
 // function addToHistory(startDate, endDate, measure, diff) {
