@@ -12,22 +12,30 @@
     <label for="start-date">Початкова дата </label>
     <input type="date" id="start-date">
     <br><br>
+    <label for="period">Період</label>
+    <select id="period">
+        <option value="day">День</option>
+        <option value="week">Тиждень</option>
+        <option value="month">Місяць</option>
+    </select>
+    <br><br>
+
     <label for="end-date">Кінцева дата</label>
     <input type="date" id="end-date">
     <br><br>
-    <label for="measure">Виміряти</label>
+    <label for="measure">Одиниця виміру</label>
     <select id="measure">
-        <option value="days">днів</option>
-        <option value="hours">годин</option>
-        <option value="minutes">хвилин</option>
-        <option value="seconds">секунд</option>
+        <option value="days">день</option>
+        <option value="hours">година</option>
+        <option value="minutes">хвилина</option>
+        <option value="seconds">секунда</option>
     </select>
     <br><br>
     <label for="daysOption">Вид днів:</label>
     <select id="daysOption">
-        <option value="all">Всі дні</option>
-        <option value="weekdays">Будні дні</option>
-        <option value="weekends">Вихідні дні</option>
+        <option value="allDays">Всі дні</option>
+        <option value="Weekdays">Будні дні</option>
+        <option value="Weekends">Вихідні дні</option>
     </select>
     <br><br>
     <button id="calculate-btn">Порахувати</button>
@@ -36,10 +44,11 @@
     <table>
         <thead>
             <tr>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Measurement</th>
-                <th>Result</th>
+                <th>Початкова дата</th>
+                <th>Кінцева дата</th>
+                <th>Вид днів</th>
+                <th>Результат</th>
+                <th>Одиниця виміру</th>
             </tr>
         </thead>
         <tbody id="results">
