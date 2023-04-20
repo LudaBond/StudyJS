@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="calc.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Date Difference Calculator</title>
+</head>
+
+<body>
+    <h1>Обчислення проміжку часу</h1>
+    <label for="start-date">Початкова дата </label>
+    <input type="date" id="start-date">
+    <br><br>
+    <label for="period">Період</label>
+    <select id="period">
+        <option value="day">День</option>
+        <option value="week">Тиждень</option>
+        <option value="month">Місяць</option>
+    </select>
+    <br><br>
+
+    <label for="end-date">Кінцева дата</label>
+    <input type="date" id="end-date">
+    <br><br>
+    <label for="measure">Одиниця виміру</label>
+    <select id="measure">
+        <option value="days">день</option>
+        <option value="hours">година</option>
+        <option value="minutes">хвилина</option>
+        <option value="seconds">секунда</option>
+    </select>
+    <br><br>
+    <label for="daysOption">Вид днів:</label>
+    <select id="daysOption">
+        <option value="allDays">Всі дні</option>
+        <option value="Weekdays">Будні дні</option>
+        <option value="Weekends">Вихідні дні</option>
+    </select>
+    <br><br>
+    <button id="calculate-btn">Порахувати</button>
+    <br><br>
+    <h2>Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Початкова дата</th>
+                <th>Кінцева дата</th>
+                <th>Вид днів</th>
+                <th>Результат</th>
+                <th>Одиниця виміру</th>
+            </tr>
+        </thead>
+        <tbody id="results">
+        </tbody>
+    </table>
+    <!-- <div id="result"></div> -->
+
+    <script src="calc1.js"></script>
+</body>
+
+</html>
